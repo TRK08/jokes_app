@@ -39,8 +39,6 @@
   margin-bottom: 0;
 }
 
-
-
 .single-joke-body {
   opacity: 0;
   visibility: hidden;
@@ -56,4 +54,18 @@
   height: 100%;
   margin-top: 10px;
   transition: all .5s ease;
+}
+
+.single-joke-head span {
+  display: block;
+  margin-left: 10px;
+}
+
+.single-joke-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.like {
+  background-color: lightblue;
 }

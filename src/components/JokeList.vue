@@ -1,9 +1,15 @@
 <template>
   <div class="joke-list">
     <div class="joke-list__wrap">
-      <div class="single-joke" v-for="(joke, index) in jokes" :key="joke.id">
-        <div class="single-joke-head" @click="openAnswer(index)">
-          {{ joke.setup || joke.joke }}
+      <div
+        class="single-joke"
+        v-for="(joke, index) in jokes"
+        :key="joke.id"
+        :class="joke.isLiked ? 'like' : ''"
+      >
+        <div class="single-joke-head">
+          <p @click="openAnswer(index)">{{ joke.setup || joke.joke }}</p>
+          <span @click="addLike(index)">like</span>
         </div>
 
         <div
@@ -28,17 +34,11 @@ export default {
     },
   },
   methods: {
-    // openAnswer(i) {
-    //   this.jokes = this.jokes.map((joke, index) => {
-    //     if (i === index && joke.delivery) {
-    //       joke.isOpen = !joke.isOpen;
-    //     }
-
-    //     return joke;
-    //   });
-    // },
     openAnswer(i) {
       this.$emit("openAnswer", i);
+    },
+    addLike(i) {
+      this.$emit("addLike", i);
     },
   },
   computed: {},

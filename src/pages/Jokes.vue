@@ -1,7 +1,11 @@
 <template>
   <div class="app__wrap">
     <Search @search="getSearchValue" />
-    <JokeList :jokes="jokesByTitle" @openAnswer="toggleAnswer" />
+    <JokeList
+      :jokes="jokesByTitle"
+      @openAnswer="toggleAnswer"
+      @addLike="addLike"
+    />
   </div>
 </template>
 
@@ -26,7 +30,16 @@ export default {
       return this.jokes.map((joke, i) => {
         if (i === index && joke.delivery) {
           joke.isOpen = !joke.isOpen;
-          console.log(joke.isOpen);
+        }
+
+        return joke;
+      });
+    },
+    addLike(index) {
+      return this.jokes.map((joke, i) => {
+        if (i === index) {
+          joke.isLiked = !joke.isLiked;
+          console.log(joke.isLiked);
         }
 
         return joke;
@@ -51,6 +64,7 @@ export default {
       .then((res) => {
         res.data.jokes.map((joke) => {
           joke.isOpen = false;
+          joke.isLiked = false;
         });
         this.jokes = res.data.jokes;
       })
