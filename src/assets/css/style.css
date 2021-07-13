@@ -1,0 +1,44 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+}
+
+.app__wrap {
+  border: 1px solid #2c2c2c;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 500px;
+  padding: 30px;
+}
+
+.search__wrap {
+  margin-bottom: 30px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+}
+
+.single-joke {
+  padding: 10px;
+  border: 1px solid #2c2c2c;
+  margin-bottom: 30px;
+}
+
+.single-joke:last-child {
+  margin-bottom: 0;
+}
+
+.single-joke-body {
+  margin-top: 10px;
+}

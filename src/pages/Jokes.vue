@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app__wrap">
     <Search @search="getSearchValue" />
     <JokeList :jokes="jokesByTitle" />
   </div>
