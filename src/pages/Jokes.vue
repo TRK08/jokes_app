@@ -1,7 +1,7 @@
 <template>
   <div class="app__wrap">
     <Search @search="getSearchValue" />
-    <JokeList :jokes="jokesByTitle" />
+    <JokeList :jokes="jokesByTitle" @openAnswer="toggleAnswer" />
   </div>
 </template>
 
@@ -22,6 +22,16 @@ export default {
     getSearchValue(data) {
       this.inputValue = data;
     },
+    toggleAnswer(index) {
+      return this.jokes.map((joke, i) => {
+        if (i === index && joke.delivery) {
+          joke.isOpen = !joke.isOpen;
+          console.log(joke.isOpen);
+        }
+
+        return joke;
+      });
+    },
   },
   computed: {
     jokesByTitle() {
@@ -39,7 +49,9 @@ export default {
     axios
       .get("https://v2.jokeapi.dev/joke/Any?amount=10")
       .then((res) => {
-        console.log(res.data);
+        res.data.jokes.map((joke) => {
+          joke.isOpen = false;
+        });
         this.jokes = res.data.jokes;
       })
       .catch((err) => {
