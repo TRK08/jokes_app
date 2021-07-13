@@ -1,5 +1,6 @@
 <template>
   <div class="app__wrap">
+    <h1>Список анекдотов</h1>
     <Search @search="getSearchValue" />
     <JokeList
       :jokes="jokesByTitle"
@@ -27,23 +28,44 @@ export default {
       this.inputValue = data;
     },
     toggleAnswer(index) {
-      return this.jokes.map((joke, i) => {
-        if (i === index && joke.delivery) {
-          joke.isOpen = !joke.isOpen;
-        }
+      if (this.inputValue === "") {
+        return this.jokes.map((joke, i) => {
+          if (i === index && joke.delivery) {
+            joke.isOpen = !joke.isOpen;
+          }
 
-        return joke;
-      });
+          return joke;
+        });
+      } else {
+        return this.jokesByTitle.map((joke, i) => {
+          if (i === index && joke.delivery) {
+            joke.isOpen = !joke.isOpen;
+          }
+
+          return joke;
+        });
+      }
     },
     addLike(index) {
-      return this.jokes.map((joke, i) => {
-        if (i === index) {
-          joke.isLiked = !joke.isLiked;
-          console.log(joke.isLiked);
-        }
+      if (this.inputValue === "") {
+        return this.jokes.map((joke, i) => {
+          if (i === index) {
+            joke.isLiked = !joke.isLiked;
+            console.log(joke.isLiked);
+          }
 
-        return joke;
-      });
+          return joke;
+        });
+      } else {
+        return this.jokesByTitle.map((joke, i) => {
+          if (i === index) {
+            joke.isLiked = !joke.isLiked;
+            console.log(joke.isLiked);
+          }
+
+          return joke;
+        });
+      }
     },
   },
   computed: {
@@ -76,4 +98,8 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
 </style>

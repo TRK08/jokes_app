@@ -12,7 +12,10 @@
 }
 
 .app__wrap {
-  border: 1px solid #2c2c2c;
+  /* border: 1px solid #2c2c2c; */
+  border-radius: 30px;
+  background-color: #FFDEE9;
+background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -31,12 +34,18 @@
 
 .single-joke {
   padding: 10px;
-  border: 1px solid #2c2c2c;
+  border: 2px solid #2c2c2c;
   margin-bottom: 30px;
+  border-radius: 15px;
 }
 
 .single-joke:last-child {
   margin-bottom: 0;
+}
+
+.single-joke-head p, 
+.single-joke-head span {
+  cursor: pointer;
 }
 
 .single-joke-body {
@@ -68,4 +77,5 @@
 
 .like {
   background-color: lightblue;
+  border: 2px solid blue;
 }
