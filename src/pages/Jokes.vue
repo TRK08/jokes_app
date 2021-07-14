@@ -21,6 +21,7 @@ export default {
     return {
       jokes: [],
       inputValue: "",
+      likedJokes: [],
     };
   },
   methods: {
@@ -52,6 +53,16 @@ export default {
           if (i === index) {
             joke.isLiked = !joke.isLiked;
             console.log(joke.isLiked);
+            if (joke.isLiked) {
+              this.likedJokes.push(joke.id);
+            } else {
+              this.likedJokes.forEach((item, index) => {
+                if (item === joke.id) {
+                  this.likedJokes.splice(index, 1);
+                }
+              });
+            }
+            localStorage.setItem("likes", JSON.stringify(this.likedJokes));
           }
 
           return joke;
@@ -61,11 +72,44 @@ export default {
           if (i === index) {
             joke.isLiked = !joke.isLiked;
             console.log(joke.isLiked);
+            if (joke.isLiked) {
+              this.likedJokes.push(joke.id);
+            } else {
+              this.likedJokes.forEach((item, index) => {
+                if (item === joke.id) {
+                  this.likedJokes.splice(index, 1);
+                }
+              });
+            }
+            localStorage.setItem("likes", JSON.stringify(this.likedJokes));
           }
 
           return joke;
         });
       }
+    },
+    getJokes() {
+      axios
+        .get("https://v2.jokeapi.dev/joke/Any?amount=10")
+        .then((res) => {
+          let likes = JSON.parse(localStorage.getItem("likes"));
+          this.likedJokes = likes;
+
+          res.data.jokes.map((joke) => {
+            joke.isOpen = false;
+            joke.isLiked = false;
+            this.likedJokes.forEach((item) => {
+              if (joke.id === item) {
+                joke.isLiked = true;
+              }
+            });
+          });
+
+          this.jokes = res.data.jokes;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   computed: {
@@ -81,18 +125,7 @@ export default {
   },
 
   mounted() {
-    axios
-      .get("https://v2.jokeapi.dev/joke/Any?amount=10")
-      .then((res) => {
-        res.data.jokes.map((joke) => {
-          joke.isOpen = false;
-          joke.isLiked = false;
-        });
-        this.jokes = res.data.jokes;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getJokes();
   },
 };
 </script>
